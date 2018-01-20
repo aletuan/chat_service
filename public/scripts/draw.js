@@ -28,7 +28,27 @@ function drawArcTo() {
     ctx.lineWidth = 5;
     ctx.beginPath();
     ctx.moveTo(300, 200);
-    ctx.arcTo(400, 500, 600, 300, 50);
+    //ctx.arcTo(400, 500, 600, 300, 50);
+    //change 50 to 300
+    ctx.arcTo(400, 500, 600, 300, 300);
+    ctx.stroke();
+
+    //using arc method
+    ctx.strokeStyle = "blue";
+    ctx.fillStyle = "yellow";
+    ctx.lineWidth = 5;
+    ctx.beginPath();
+    ctx.arc(400, 300, 100, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.strokeStyle = "blue";
+    ctx.fillStyle = "red";
+    ctx.lineWidth = 5;
+
+    ctx.beginPath();
+    ctx.arc(450, 350, 100, 0, 1.5 * Math.PI);
+    ctx.fill();
     ctx.stroke();
 
 }
