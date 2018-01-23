@@ -1,0 +1,55 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.js"></script>
+    <script type="text/javascript" src="scripts/data.js"></script>
+    <link href="content/datastore.css" rel="stylesheet" />
+    <title>Document</title>
+</head>
+<body>
+    <div id="container">
+        <header>
+            <hgroup id="headerText">
+                <h1>Context</h1>
+            </hgroup>
+        </header>
+        <div role="main">
+            <table id="contacts">
+                <thead>
+                    <tr>
+                        <th>Email</th>
+                        <th>Name</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+            <div id="editContact">
+                    <h2 id="currentAction"></h2>
+                    <div>
+                        <label for="firstName">First Name:</label>
+                        <input type="text" id="firstName" name="firstName" />
+                    </div>
+                    <div>
+                        <label for="lastName">Last Name:</label>
+                        <input type="text" id="lastName" name="lastName" />
+    </div> <div>
+                        <label for="email">Email Address:</label>
+                        <input type="email" id="email" name="email" />
+                    </div>
+                    <div>
+                        <label for="phoneNumber">Phone Number:</label>
+                        <input type="text" id="phoneNumber" name="phoneNumber" />
+                    </div>
+                    <div class="buttons">
+                        <button id="btnSave" name="save">Save</button>
+                    </div>
+                </div>
+        </div>
+    </div>
+</body>
+</html>

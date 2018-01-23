@@ -4,7 +4,21 @@ $(document).ready(function () {
     getLocation();
     $('#startMonitoring').on('click', getLocation);
     $('#stopMonitoring').on('click', endWatch);
+
+    $('#setCookie').on('click', setCookie);
+    $('#getCookie').on('click', getCookie);
 });
+
+function setCookie() {
+    console.log("setCookie is called");
+    $.cookie('firstName', 'Tuan Anh Le');
+}
+
+function getCookie() {    
+    var name = $.cookie('firstName');
+    console.log("getCookie is called" + name);
+    showMessage(name);
+}
 
 /*
 function getLocation() {
@@ -43,6 +57,10 @@ function getDistance(lat1, lon1, lat2, lon2) {
     var distance = earthRadius * c;
 
     return distance;
+}
+
+function getRadians (latlongDistance) {
+    return latlongDistance * Math.PI / 180;
 }
 
 function endWatch() {
