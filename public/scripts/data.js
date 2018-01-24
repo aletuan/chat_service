@@ -29,6 +29,7 @@ $(document).ready(function() {
     };
 
     ns.loadContact = function () {
+        console.log("loadContact is called");
         var key = parseInt($(this).attr('data-key'));
         var results = retrieveFromStorage();
         $('#currentAction').html('Edit Contact');
@@ -81,6 +82,8 @@ $(document).ready(function() {
             html += '<td><a class="edit" href="javascript:void(0)" data-key=' + i + '>Edit</a></td></tr>';
         }
         html = html || '<tr><td colspan="3">No records available</td></tr>';
+        
         $('#contacts tbody').html(html);
+        $('#contacts a.edit').on('click', ns.loadContact);
     }
 })();
