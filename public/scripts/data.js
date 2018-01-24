@@ -18,6 +18,13 @@ $(document).ready(function() {
         // when button click, then save & refrest again the grid
         $('#btnSave').on('click', ns.save);
         ns.display();
+
+        // initialize database
+        var db = openDatabase("Library", "3.0", "My library", 5 * 1024 * 1024);
+        // change version
+        //db.changeVersion("2.0", "3.0", migrateDB, onError, onSuccess);
+        // display current version
+        console.log("Current schema: " + db.version);
     };
 
     ns.display = function () {
@@ -86,4 +93,22 @@ $(document).ready(function() {
         $('#contacts tbody').html(html);
         $('#contacts a.edit').on('click', ns.loadContact);
     }
+
+    // using web sql in chrome
+    function migrateDB(transaction) {
+        transaction.executeSql("CREATE TABLE IF NOT EXISTS authors(" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "firstName TEXT, "+
+                    "lastName TEXT, " +
+                    "dateCreated TIMESTAMP DEFAULT(datetime('now', 'localtime')))");
+    }
+
+    function onError(error) {
+        alert("Error code: " + error.code + " Message: " + error.message);
+    }
+
+    function onSuccess(error) {
+        alert("Migration complete");
+    }
+
 })();
