@@ -1,3 +1,11 @@
+// cross browser friendly fixing
+window.indexedDB = window.indexedDB || window.mozIndexedDB
+      || window.webkitIndexedDB || window.msIndexedDB;
+window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction;
+window.IDBCursor = window.IDBCursor || window.webkitIDBCursor;
+window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange;
+
+
 $(document).ready(function() {
     contactsNamespace.initialize();
 });
@@ -21,19 +29,41 @@ $(document).ready(function() {
         ns.display();
 
         // initialize database
-        db = openDatabase("Library", "5.0", "My library", 5 * 1024 * 1024);
+        //db = openDatabase("Library", "5.0", "My library", 5 * 1024 * 1024);
         // change version
         //db.changeVersion("4.0", "5.0", migrateDB, onError, onSuccess);
         // display current version
-        console.log("Current schema: " + db.version);
+        //console.log("Current schema: " + db.version);
 
         // insert data
-        insertDatabase("Tuan Anh", "Le");
-        insertDatabase("Mai Huong ", "Le");
-        insertDatabase("Tuan Anh", "Le");
+        //insertDatabase("Tuan Anh", "Le");
+        //insertDatabase("Mai Huong ", "Le");
+        //insertDatabase("Tuan Anh", "Le");
 
         // get and show data size
-        getRecords();
+        //getRecords();
+        var indexedDB = window.indexedDB;
+        // open database
+        var openRequest = indexedDB.open('Library', 2);
+        var db;
+
+        openRequest.onupgradeneeded = function(response) {
+            console.log("onupgradedneeded is called");
+            response.currentTarget.result.createObjectStore("authors", 
+        {
+            keypath: 'id',
+            autoIncrement: true
+        });
+        };
+
+        openRequest.onsuccess = function(response) {
+            console.log("IndexDB open success");
+            db = openRequest.result;
+        };
+
+        openRequest.onerror = function(response) {
+            console.log("IndexDB open error");            
+        };
 
     };
 
