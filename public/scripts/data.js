@@ -5,6 +5,7 @@ $(document).ready(function() {
 (function() {
     this.contactsNamespace = this.contactsNamespace || {};
     var ns = this.contactsNamespace;
+    var db;
     var currentRecord;
 
     ns.initialize = function () {
@@ -20,12 +21,48 @@ $(document).ready(function() {
         ns.display();
 
         // initialize database
-        var db = openDatabase("Library", "3.0", "My library", 5 * 1024 * 1024);
+        db = openDatabase("Library", "5.0", "My library", 5 * 1024 * 1024);
         // change version
-        //db.changeVersion("2.0", "3.0", migrateDB, onError, onSuccess);
+        //db.changeVersion("4.0", "5.0", migrateDB, onError, onSuccess);
         // display current version
         console.log("Current schema: " + db.version);
+
+        // insert data
+        insertDatabase("Tuan Anh", "Le");
+        insertDatabase("Mai Huong ", "Le");
+        insertDatabase("Tuan Anh", "Le");
+
+        // get and show data size
+        getRecords();
+
     };
+
+    function insertDatabase(firstName, lastName) {
+        console.log("insert database is called");
+        db.transaction(function (t) {
+            t.executeSql("INSERT INTO authors(firstName, lastName) VALUES(?,?)", [firstName, lastName], itemInserted);
+        });
+    }
+
+    function getRecords() {
+        console.log("getRecords function is called");
+        db.transaction(function(t){
+            t.executeSql("SELECT * FROM authors", [], displayResults)
+        });
+    }
+
+    function displayResults(transaction, results) {
+        console.log(results.rows.length);
+        //console.log("Number of record " + results.rows.length);
+        for (var i = 0; i < results.rows.length; i++) {
+            var item = results.rows.item(i);
+            $('#items').append('<li>' + item.firstName + " " + item.lastName + "</li>");
+        }
+    }
+
+    function itemInserted(transaction, results) {
+        console.log("Id: " + results.getInsertId);
+    }
 
     ns.display = function () {
         $('#currentAction').html('Add Contact');
