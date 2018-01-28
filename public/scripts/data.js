@@ -59,11 +59,27 @@ $(document).ready(function() {
         openRequest.onsuccess = function(response) {
             console.log("IndexDB open success");
             db = openRequest.result;
+            addAuthors();
         };
 
         openRequest.onerror = function(response) {
             console.log("IndexDB open error");            
         };
+
+        function addAuthors() {
+            console.log("AddAuthors is called");
+            var trans = db.transaction('authors', 'readwrite');
+            var authors = trans.objectStore('authors');
+            var request = authors.add({firstName: "Daniel", lastName: "Defoe"});
+
+            request.onsuccess = function(response) {
+                console.log("adding new object is successed");
+            };
+
+            request.onerror = function(response) {
+                console.log("removing object has error");
+            };
+        }
 
     };
 
