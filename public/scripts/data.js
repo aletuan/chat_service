@@ -59,12 +59,25 @@ $(document).ready(function() {
         openRequest.onsuccess = function(response) {
             console.log("IndexDB open success");
             db = openRequest.result;
-            addAuthors();
+            //addAuthors();
+            getAuthor();
         };
 
         openRequest.onerror = function(response) {
             console.log("IndexDB open error");            
         };
+
+        function getAuthor() {
+            console.log("getAuthor is called");
+            var trans = db.transaction("authors", "readonly");
+            var authors = trans.objectStore("authors");
+            var request = authors.get(1);
+
+            request.onsuccess = function(response) {
+                var author = response.target.result;
+                console.log("last name " + author.lastName);
+            }
+        }
 
         function addAuthors() {
             console.log("AddAuthors is called");
