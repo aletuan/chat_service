@@ -5,6 +5,11 @@ window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction;
 window.IDBCursor = window.IDBCursor || window.webkitIDBCursor;
 window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange;
 
+// get request file system depending on Chrome versions
+window.requestFileSystem  = window.requestFileSystem ||
+      window.webkitRequestFileSystem;
+
+
 
 $(document).ready(function() {
     contactsNamespace.initialize();
